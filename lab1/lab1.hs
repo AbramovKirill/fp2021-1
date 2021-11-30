@@ -26,5 +26,5 @@ function2 a b c=b<=a && a<=c
 
 main :: IO ()
 main = do
-	print(function1 [1,2,3])
-	--print(function1 [2,1,3])
+ print(function1 [1,2,3])
+ --print(function1 [2,1,3])
