@@ -21,10 +21,11 @@ function1 a=a!!1<=head a && head a<=last a
 function2 :: Integer->Integer->Integer->Bool
 function2 a b c=b<=a && a<=c
 
--- Висновок: при виконанні даної лабораторної роботи я вперше попрацювала з мовою Haskell та з 
--- інтерпретатором ghci.
 
 main :: IO ()
 main = do
  print(function1 [1,2,3])
  --print(function1 [2,1,3])
+
+
+-- Висновок: при виконанні даної лабораторної роботи я вперше попрацював з мовою Haskell та з інтерпретатором ghc та ghci.
