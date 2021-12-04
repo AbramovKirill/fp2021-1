@@ -3,65 +3,34 @@
 -- Абрамов Кірілл
 -- Варіант №1
 
--- Мета: Ознайомитись з системою типів та класів типів. Набути досвіду визначення
--- нових типів та класів типів і їх використання.
 
---Завдання
--- 4.1. Фігури на площині: Визначити функцію для отримання прямокутника, який містить
--- усі фігури із задоного списку.
--- 4.2. Переміщення фігури на вказаний вектор
+-- 1. Обчислення площі фігури.
 
-data Font = Consolas | LucidaConsole | SourceCodePro deriving (Eq, Show)
+data Font=Consolas | SourceCode | Lucida 
+data Figure=Circle Float Float Float | Rectangle Float Float Float Float | Triangle Float Float Float Float Float Float
+              | TextBox  Float Float Font String 
 
-data Figure = 
-    Circle Int Int Int
-  | Rect Int Int Int Int
-  | Triangle Int Int Int Int Int Int
-  | Text Int Int Font String
-  deriving (Eq, Show)
+getLet :: Font->Float
+getLet Consolas=3
+getLet SourceCode=11
+getLet Lucida=8
 
-getRectangles :: [Figure] -> [Figure]
-getRectangles [] = []
-getRectangles ((Rect x1 y1 x2 y2) : xs) = Rect x1 y1 x2 y2 : getRectangles xs
-getRectangles ((Circle {}) : xs) = getRectangles xs
-getRectangles ((Triangle {}) : xs) = getRectangles xs
-getRectangles ((Text {}) : xs) = getRectangles xs
+toFloat x = fromIntegral (length x) :: Float
 
-getCircles :: [Figure] -> [Figure]
-getCircles [] = []
-getCircles ((Circle x y r) : xs) = Circle x y r : getCircles xs
-getCircles ((Rect {}) : xs) = getCircles xs
-getCircles ((Triangle {}) : xs) = getCircles xs
-getCircles ((Text {}) : xs) = getCircles xs
+getS :: [Figure]->[Float]
+getS []=[]
 
-getTriangles :: [Figure] -> [Figure]
-getTriangles [] = []
-getTriangles ((Triangle x1 y1 x2 y2 x3 y3) : xs) = Triangle x1 y1 x2 y2 x3 y3 : getTriangles xs
-getTriangles ((Rect {}) : xs) = getTriangles xs
-getTriangles ((Circle {}) : xs) = getTriangles xs
-getTriangles ((Text {}) : xs) = getTriangles xs
+getS ((Circle x y r):xs)=3.14*r*r:getS xs
+getS ((Rectangle x1 y1 x2 y2):xs)=(x2-x1)*(y2-y1):getS xs
+getS ((Triangle x1 y1 x2 y2 x3 y3):xs)=0.5*((x1-x3)*(y2-y3)-(x2-x3)*(y1-y3)):getS xs
+getS ((TextBox x y f str):xs)=(getLet f)*(getLet f)*(toFloat str):getS xs
 
-getLabels :: [Figure] -> [Figure]
-getLabels [] = []
-getLabels ((Text x y f s) : xs) = Text x y f s : getLabels xs
-getLabels ((Rect {}) : xs) = getLabels xs
-getLabels ((Triangle {}) : xs) = getLabels xs
-getLabels ((Circle {}) : xs) = getLabels xs
 
-getFigures :: String -> [Figure] -> [Figure]
-getFigures str array
-  | str == "Rectangle" = getRectangles array
-  | str == "Circle" = getCircles array
-  | str == "Triangle" = getTriangles array
-  | str == "Text" = getLabels array
-  | otherwise = []
+-- Результат тестування:
+-- 1
+-- Prelude> getS [Circle 1 1 1, Rectangle 0 2 3 0]
+-- >  3.14, 6 
 
---Додаткове завдання:
---Перемiщення фiгури на вказаний вектор.
-move :: Figure -> Int -> Int -> Figure
-move (Rect x1 y1 x2 y2) v1 v2 = Rect (x1 + v1) (y1 + v2) (x2 + v1) (y2 + v2)
-move (Circle x y r) v1 v2 = Circle (x + v1) (y + v2) r
-move (Text x y f s) v1 v2 = Text (x + v1) (y + v2) f s
-move (Triangle x1 y1 x2 y2 x3 y3) v1 v2 = Triangle (x1 + v1) (y1 + v2) (x2 + v1) (y2 + v2) (x3 + v1) (y3 + v2)
 
---Висновок: під час даної лабораторної роботи я дізнався про нові типи та класи типів, нові знання використав на практиці.
+-- Висновок: під час даної лабораторної роботи я дізнався про нові типи та 
+-- класи типів, нові знання використав на практиці.

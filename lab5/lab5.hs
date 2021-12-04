@@ -1,4 +1,4 @@
--- Лабораторна робота №1
+-- Лабораторна робота №5
 -- Cтудентa групи КН-32 підгрупи 1
 -- Абрамов Кірілл
 -- Варіант №1
@@ -7,8 +7,8 @@
 reverses  [a] - [a]
 reverses = reverse
 
-vyvod  IO()
-vyvod = do
+main :: IO()
+main = do
 -- a) введення з клавіатури
     putStrLn Input
     str-getLine
@@ -23,7 +23,5 @@ vyvod = do
 --г) виведення результатів у файл
     str-readFile input.txt
     writeFile output.txt (reverse str)
-
---input:"abcdef"
 
 -- Висновок: я ознайомився з модульною органiзацiєю програм та засобами введення-виведення.
